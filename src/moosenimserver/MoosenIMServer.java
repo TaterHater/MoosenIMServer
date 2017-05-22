@@ -5,17 +5,45 @@
  */
 package moosenimserver;
 
+
+import java.io.*;
+import java.net.*;
+
 /**
  *
  * @author Nick Beeson
  */
 public class MoosenIMServer {
 
-    /**
-     * @param args the command line arguments
-     */
+    
+    //http://stackoverflow.com/questions/5680259/using-sockets-to-send-and-receive-data
+    public static Socket ssock = null;
+    public static User[] users;
+    public  DataOutputStream fromServer;
+    public static DataInputStream in;
+    
+    //i know one is private and one is public, im testing something. 
+    private static BufferedReader toServer;
+    
     public static void main(String[] args) {
-        // TODO code application logic here
+       
+        users = new User[10];
+        ServerSocket s2 = null;
+        try{
+            ssock = new Socket("localhost",5012);
+              //toServer = new BufferedReader(new InputStreamReader(ssock.getInputStream()));
+               in = new DataInputStream(ssock.getInputStream());
+                while(!ssock.isClosed()){
+              
+            String b = in.readUTF();
+            System.out.println(b);
+            
+        }
+        } catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+       
+        
     }
     
 }
